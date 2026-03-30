@@ -29,8 +29,6 @@ public class BaiduBaikeController {
     private BaseRepositoryImpl baseRepository;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
-    //    @Autowired
-//    private BaikeSpiderService baikeSpiderService;
     @Autowired
     private BaikeService baikeService;
 
@@ -48,10 +46,6 @@ public class BaiduBaikeController {
         System.out.println("将" + add + "个key放入redsi");
     }
 
-    //    @RequestMapping("query")
-//    public BaikeResponse queryBaike(@RequestParam("word") String word) {
-//        return baikeSpiderService.queryBaike(word);
-//    }
     @PostMapping("query")
     public BaseResponse<List<BaikeItemResponse>> query(@RequestParam("word") String word) {
         List<BaikeItemResponse> query = baikeService.query(word);

@@ -6,21 +6,26 @@ import com.touchkiss.catelogueoflife.life.bean.SourceDatabase;
 import com.touchkiss.catelogueoflife.life.services.LifeCategoryDaoService;
 import com.touchkiss.catelogueoflife.life.services.LifeCategorySourceDatabaseDaoService;
 import com.touchkiss.catelogueoflife.life.services.SourceDatabaseDaoService;
-import com.touchkiss.catelogueoflife.spider.base.ThreadPoolExecutors;
 import com.touchkiss.catelogueoflife.spider.constants.UrlConstants;
 import com.touchkiss.catelogueoflife.spider.life.bean.bo.LifeCategoryBO;
 import com.touchkiss.catelogueoflife.spider.life.bean.convertor.LifeCategoryConvertor;
 import com.touchkiss.catelogueoflife.spider.life.bean.convertor.SourceDatabaseConvertor;
 import com.touchkiss.catelogueoflife.spider.life.bean.response.LifeCategoryResponse;
 import com.touchkiss.catelogueoflife.spider.life.services.LifeCategorySpiderService;
-import com.touchkiss.catelogueoflife.spider.life.services.LifeCategorySpiderThread;
 import com.touchkiss.catelogueoflife.spider.species.services.SpeciesSpiderService;
 import com.touchkiss.catelogueoflife.utils.GsonUtil;
 import com.touchkiss.catelogueoflife.utils.HttpUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -49,6 +54,9 @@ public class LifeCategorySpiderServiceImpl implements LifeCategorySpiderService 
     private SourceDatabaseConvertor sourceDatabaseConvertor;
     @Autowired
     private SpeciesSpiderService speciesSpiderService;
+    @Autowired
+    @Qualifier("spiderTaskExecutor")
+    private Executor spiderTaskExecutor;
 
     @Override
     public int fetchLifeCategoryFromWeb(int id) throws IOException {
@@ -119,19 +127,17 @@ public class LifeCategorySpiderServiceImpl implements LifeCategorySpiderService 
             put("limit", "limit 5");
         }});
         if (!CollectionUtils.isEmpty(list)) {
-//            list.forEach(lifeCategory -> {
-//                try {
-//                    if (!lifeCategory.getFetched()){
-//                        fetchLifeCategoryFromWeb(lifeCategory.getId());
-//                    }
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            });
             list.stream()
-                    .filter(lifeCategory -> !lifeCategory.getFetched())
-                    .map(lifeCategory -> new LifeCategorySpiderThread(lifeCategory.getId(), this))
-                    .forEach(ThreadPoolExecutors.pool::execute);
+                .filter(lifeCategory -> !lifeCategory.getFetched())
+                .forEach(lifeCategory -> 
+                    CompletableFuture.runAsync(() -> {
+                        try {
+                            fetchLifeCategoryFromWeb(lifeCategory.getId());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }, spiderTaskExecutor)
+                );
         }
     }
 }

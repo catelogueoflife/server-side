@@ -4,6 +4,7 @@ import com.touchkiss.catelogueoflife.base.PageResult;
 import com.touchkiss.catelogueoflife.life.bean.LifeCategory;
 import com.touchkiss.catelogueoflife.life.services.LifeCategoryDaoService;
 import com.touchkiss.catelogueoflife.controller.BaseController;
+import com.touchkiss.catelogueoflife.response.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,32 +30,32 @@ public class LifeCategoryController implements BaseController {
     }
 
     @GetMapping("/lifeCategory/{id}")
-    public LifeCategory getOne(@PathVariable("id") Integer id) {
-        return lifeCategoryDaoService.selectById(id);
+    public Result<LifeCategory> getOne(@PathVariable("id") Integer id) {
+        return Result.success(lifeCategoryDaoService.selectById(id));
     }
 
     @DeleteMapping("/lifeCategory/{id}")
-    public boolean deleteOne(@PathVariable("id") Integer id) {
-        return lifeCategoryDaoService.deleteById(id);
+    public Result<Boolean> deleteOne(@PathVariable("id") Integer id) {
+        return Result.success(lifeCategoryDaoService.deleteById(id));
     }
 
     @PostMapping("lifeCategory")
-    public boolean insertOne(@RequestBody LifeCategory lifeCategory) {
-        return lifeCategoryDaoService.insert(lifeCategory);
+    public Result<Boolean> insertOne(@RequestBody LifeCategory lifeCategory) {
+        return Result.success(lifeCategoryDaoService.insert(lifeCategory));
     }
 
     @PutMapping("lifeCategory/{id}")
-    public boolean updateOne(@RequestBody LifeCategory lifeCategory, @PathVariable("id") Integer id) {
-        return lifeCategoryDaoService.updateById(lifeCategory, id);
+    public Result<Boolean> updateOne(@RequestBody LifeCategory lifeCategory, @PathVariable("id") Integer id) {
+        return Result.success(lifeCategoryDaoService.updateById(lifeCategory, id));
     }
 
     @PatchMapping("lifeCategory/{id}")
-    public boolean updateSelective(@RequestBody LifeCategory lifeCategory, @PathVariable("id") Integer id) {
-        return lifeCategoryDaoService.updateSelectiveById(lifeCategory, id);
+    public Result<Boolean> updateSelective(@RequestBody LifeCategory lifeCategory, @PathVariable("id") Integer id) {
+        return Result.success(lifeCategoryDaoService.updateSelectiveById(lifeCategory, id));
     }
 
     @PostMapping("tree/{id}")
-    public List<LifeCategory> tree(@PathVariable("id") Integer id){
-        return lifeCategoryDaoService.queryTree(id);
+    public Result<List<LifeCategory>> tree(@PathVariable("id") Integer id){
+        return Result.success(lifeCategoryDaoService.queryTree(id));
     }
 }

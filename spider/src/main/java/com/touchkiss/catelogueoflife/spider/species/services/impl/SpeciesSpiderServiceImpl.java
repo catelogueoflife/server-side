@@ -4,23 +4,25 @@ import com.touchkiss.catelogueoflife.life.bean.LifeCategory;
 import com.touchkiss.catelogueoflife.life.services.LifeCategoryDaoService;
 import com.touchkiss.catelogueoflife.species.bean.*;
 import com.touchkiss.catelogueoflife.species.services.*;
-import com.touchkiss.catelogueoflife.spider.base.ThreadPoolExecutors;
 import com.touchkiss.catelogueoflife.spider.constants.UrlConstants;
 import com.touchkiss.catelogueoflife.spider.species.bean.bo.SpeciesBO;
 import com.touchkiss.catelogueoflife.spider.species.bean.convertor.*;
 import com.touchkiss.catelogueoflife.spider.species.bean.response.SpeciesResponse;
 import com.touchkiss.catelogueoflife.spider.species.services.SpeciesSpiderService;
-import com.touchkiss.catelogueoflife.spider.species.services.SpeciesSpiderThread;
 import com.touchkiss.catelogueoflife.utils.GsonUtil;
 import com.touchkiss.catelogueoflife.utils.HttpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 
 /**
  * Created on 2020/03/20 18:24
@@ -56,6 +58,9 @@ public class SpeciesSpiderServiceImpl implements SpeciesSpiderService {
     private SpeciesReferencesDaoService speciesReferencesDaoService;
     @Autowired
     private SpeciesSynonymsDaoService speciesSynonymsDaoService;
+    @Autowired
+    @Qualifier("spiderTaskExecutor")
+    private Executor spiderTaskExecutor;
 
     @Override
     public boolean fetchSpecies(String id) throws IOException {
@@ -131,9 +136,23 @@ public class SpeciesSpiderServiceImpl implements SpeciesSpiderService {
             put("type", "species");
             put("limit", "limit 20");
         }});
-        list.stream()
-                .map(lifeCategory ->
-                        new SpeciesSpiderThread(lifeCategory, this, lifeCategoryDaoService))
-                .forEach(ThreadPoolExecutors.pool::execute);
+        if (!CollectionUtils.isEmpty(list)) {
+            list.forEach(lifeCategory -> 
+                CompletableFuture.runAsync(() -> {
+                    Matcher matcher = ID_PATTERN.matcher(lifeCategory.getUrl());
+                    if (matcher.find()) {
+                        String speciesId = matcher.group(0);
+                        try {
+                            if (fetchSpecies(speciesId)) {
+                                lifeCategory.setFetched(true);
+                                lifeCategoryDaoService.updateById(lifeCategory, lifeCategory.getId());
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, spiderTaskExecutor)
+            );
+        }
     }
 }

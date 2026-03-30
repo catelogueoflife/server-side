@@ -10,8 +10,15 @@ import com.touchkiss.catelogueoflife.utils.GsonUtil;
 import com.touchkiss.catelogueoflife.utils.HttpUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -28,6 +35,9 @@ public class BiodinfoTranslateSpiderServiceImpl implements BiodinfoTranslateSpid
     private BiodinfoTranslateConvertor biodinfoTranslateConvertor;
     @Autowired
     private TranslateDaoService translateDaoService;
+    @Autowired
+    @Qualifier("spiderTaskExecutor")
+    private Executor spiderTaskExecutor;
 
     @Override
     public boolean fetchTranslate(String id, String treeid) throws IOException {
@@ -66,14 +76,17 @@ public class BiodinfoTranslateSpiderServiceImpl implements BiodinfoTranslateSpid
             put("fetched", "0");
             put("limit", "limit 10");
         }});
-//        list.stream().map(translate -> new TranslateSpiderThread(this, translate.getLid(), translate.getTreeId())).forEach(ThreadPoolExecutors.pool::execute);
-        list.forEach(translate -> {
-            try {
-                fetchTranslate(translate.getLid(), translate.getTreeId());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        if (!CollectionUtils.isEmpty(list)) {
+            list.forEach(translate -> {
+                CompletableFuture.runAsync(() -> {
+                    try {
+                        fetchTranslate(translate.getLid(), translate.getTreeId());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }, spiderTaskExecutor);
+            });
+        }
     }
 }
 

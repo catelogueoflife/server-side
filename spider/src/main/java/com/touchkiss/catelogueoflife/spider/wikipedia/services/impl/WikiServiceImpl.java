@@ -1,18 +1,23 @@
 package com.touchkiss.catelogueoflife.spider.wikipedia.services.impl;
 
 import com.touchkiss.catelogueoflife.aop.Timer;
-import com.touchkiss.catelogueoflife.spider.base.ThreadPoolExecutors;
 import com.touchkiss.catelogueoflife.spider.constants.RedisConstants;
 import com.touchkiss.catelogueoflife.spider.constants.UrlConstants;
 import com.touchkiss.catelogueoflife.spider.wikipedia.bean.WikiQueryResponse;
 import com.touchkiss.catelogueoflife.spider.wikipedia.services.WikiService;
-import com.touchkiss.catelogueoflife.spider.wikipedia.services.WikiSpiderThread;
 import com.touchkiss.catelogueoflife.utils.GsonUtil;
 import com.touchkiss.catelogueoflife.utils.HttpUtil;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,7 +35,10 @@ public class WikiServiceImpl implements WikiService {
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
-    final static Pattern INNER_LINK_PATTERN = Pattern.compile("(?<=[\\[]{2})[^\\]]+(?=[\\]]{2})");
+    @Autowired
+    @Qualifier("spiderTaskExecutor")
+    private Executor spiderTaskExecutor;
+    final static Pattern INNER_LINK_PATTERN = Pattern.compile("(?<=\\[\\[)[^\\]]+(?=\\]\\])");
 
     @Override
     @Timer
@@ -48,7 +56,11 @@ public class WikiServiceImpl implements WikiService {
             try {
                 stringRedisTemplate.opsForSet().add(RedisConstants.WIKI_QUERY_HAS_FETCHED, title);
                 String content = wikiQueryResponse.getQuery().getPages().get(0).getRevisions().get(0).getContent();
-                File file = new File("D:\\documents\\java\\category-of-life\\spider\\wiki-contents\\" + title + ".txt");
+                File targetDir = new File("data/spider/wiki-contents");
+                if (!targetDir.exists()) {
+                    targetDir.mkdirs();
+                }
+                File file = new File(targetDir, title + ".txt");
                 if (!file.exists()) {
                     file.createNewFile();
                 } else {
@@ -75,7 +87,10 @@ public class WikiServiceImpl implements WikiService {
     @Override
     public void autoFetch() {
         List<String> titles = stringRedisTemplate.opsForSet().pop(RedisConstants.WIKI_QUERY_NOT_FETCHED, 10);
-        titles.stream().map(title -> new WikiSpiderThread(this, title))
-                .forEach(ThreadPoolExecutors.pool::execute);
+        if (titles != null && !titles.isEmpty()) {
+            titles.forEach(title -> 
+                CompletableFuture.runAsync(() -> this.fetchContent(title), spiderTaskExecutor)
+            );
+        }
     }
 }

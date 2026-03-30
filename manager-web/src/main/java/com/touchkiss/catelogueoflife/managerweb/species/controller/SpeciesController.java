@@ -4,6 +4,7 @@ import com.touchkiss.catelogueoflife.base.PageResult;
 import com.touchkiss.catelogueoflife.species.bean.Species;
 import com.touchkiss.catelogueoflife.species.services.SpeciesDaoService;
 import com.touchkiss.catelogueoflife.controller.BaseController;
+import com.touchkiss.catelogueoflife.response.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,27 +29,27 @@ public class SpeciesController implements BaseController {
     }
 
     @GetMapping("/species/{id}")
-    public Species getOne(@PathVariable("id") String id) {
-        return speciesDaoService.selectById(id);
+    public Result<Species> getOne(@PathVariable("id") String id) {
+        return Result.success(speciesDaoService.selectById(id));
     }
 
     @DeleteMapping("/species/{id}")
-    public boolean deleteOne(@PathVariable("id") String id) {
-        return speciesDaoService.deleteById(id);
+    public Result<Boolean> deleteOne(@PathVariable("id") String id) {
+        return Result.success(speciesDaoService.deleteById(id));
     }
 
     @PostMapping("species")
-    public boolean insertOne(@RequestBody Species species) {
-        return speciesDaoService.insert(species);
+    public Result<Boolean> insertOne(@RequestBody Species species) {
+        return Result.success(speciesDaoService.insert(species));
     }
 
     @PutMapping("species/{id}")
-    public boolean updateOne(@RequestBody Species species, @PathVariable("id") String id) {
-        return speciesDaoService.updateById(species, id);
+    public Result<Boolean> updateOne(@RequestBody Species species, @PathVariable("id") String id) {
+        return Result.success(speciesDaoService.updateById(species, id));
     }
 
     @PatchMapping("species/{id}")
-    public boolean updateSelective(@RequestBody Species species, @PathVariable("id") String id) {
-        return speciesDaoService.updateSelectiveById(species, id);
+    public Result<Boolean> updateSelective(@RequestBody Species species, @PathVariable("id") String id) {
+        return Result.success(speciesDaoService.updateSelectiveById(species, id));
     }
 }

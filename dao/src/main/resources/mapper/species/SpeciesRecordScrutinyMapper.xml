@@ -1,104 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.touchkiss.catelogueoflife.species.mapper.SpeciesRecordScrutinyDaoM">
-  <resultMap id="BaseResultMap" type="com.touchkiss.catelogueoflife.species.bean.SpeciesRecordScrutiny">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="species_id" jdbcType="VARCHAR" property="speciesId" />
-    <result column="scrutiny" jdbcType="VARCHAR" property="scrutiny" />
-    <result column="create_time" jdbcType="BIGINT" property="createTime" />
-    <result column="last_modify_time" jdbcType="BIGINT" property="lastModifyTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id,species_id,scrutiny,create_time,last_modify_time
-  </sql>
-  <insert id="insert" parameterType="com.touchkiss.catelogueoflife.species.bean.SpeciesRecordScrutiny">
-     insert into t_species_record_scrutiny(<include refid="Base_Column_List"></include>)
-     values (
-     #{id,jdbcType=INTEGER},#{speciesId,jdbcType=VARCHAR},#{scrutiny,jdbcType=VARCHAR},#{createTime,jdbcType=BIGINT},#{lastModifyTime,jdbcType=BIGINT})
-  </insert>
-  <insert id="insertWithoutId" parameterType="com.touchkiss.catelogueoflife.species.bean.SpeciesRecordScrutiny" useGeneratedKeys="true" keyProperty="id">
-     insert into t_species_record_scrutiny(species_id,scrutiny,create_time,last_modify_time)
-     values (
-     #{speciesId,jdbcType=VARCHAR},#{scrutiny,jdbcType=VARCHAR},#{createTime,jdbcType=BIGINT},#{lastModifyTime,jdbcType=BIGINT})
-  </insert>
-  <delete id="deleteById" parameterType="java.lang.Integer">
-     delete from t_species_record_scrutiny
-     where id = #{id,jdbcType=INTEGER}
-  </delete>
+    <resultMap id="BaseResultMap" type="com.touchkiss.catelogueoflife.species.bean.SpeciesRecordScrutiny">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="species_id" jdbcType="VARCHAR" property="speciesId"/>
+        <result column="scrutiny" jdbcType="VARCHAR" property="scrutiny"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="last_modify_time" jdbcType="BIGINT" property="lastModifyTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,species_id,scrutiny,create_time,last_modify_time
+    </sql>
+    <insert id="insert" parameterType="com.touchkiss.catelogueoflife.species.bean.SpeciesRecordScrutiny">
+        insert into t_species_record_scrutiny(<include refid="Base_Column_List"></include>)
+        values (
+        #{id,jdbcType=INTEGER},#{speciesId,jdbcType=VARCHAR},#{scrutiny,jdbcType=VARCHAR},#{createTime,jdbcType=BIGINT},#{lastModifyTime,jdbcType=BIGINT})
+    </insert>
+    <insert id="insertWithoutId" parameterType="com.touchkiss.catelogueoflife.species.bean.SpeciesRecordScrutiny"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into t_species_record_scrutiny(species_id, scrutiny, create_time, last_modify_time)
+        values (#{speciesId,jdbcType=VARCHAR}, #{scrutiny,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT},
+                #{lastModifyTime,jdbcType=BIGINT})
+    </insert>
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete
+        from t_species_record_scrutiny
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
     <delete id="deleteByMap">
         delete from t_species_record_scrutiny
         <include refid="whereSql"></include>
     </delete>
-  <update id="updateById">
-     update t_species_record_scrutiny
-     set
-       species_id = #{speciesRecordScrutiny.speciesId,jdbcType=VARCHAR},
-       scrutiny = #{speciesRecordScrutiny.scrutiny,jdbcType=VARCHAR},
-       create_time = #{speciesRecordScrutiny.createTime,jdbcType=BIGINT},
-       last_modify_time = #{speciesRecordScrutiny.lastModifyTime,jdbcType=BIGINT}
-     where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateSelectiveById">
-     update t_species_record_scrutiny
-     set
+    <update id="updateById">
+        update t_species_record_scrutiny
+        set species_id       = #{speciesRecordScrutiny.speciesId,jdbcType=VARCHAR},
+            scrutiny         = #{speciesRecordScrutiny.scrutiny,jdbcType=VARCHAR},
+            create_time      = #{speciesRecordScrutiny.createTime,jdbcType=BIGINT},
+            last_modify_time = #{speciesRecordScrutiny.lastModifyTime,jdbcType=BIGINT}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateSelectiveById">
+        update t_species_record_scrutiny
+        set
         <trim suffixOverrides=",">
-     <if test="speciesRecordScrutiny.speciesId != null">
-       species_id = #{speciesRecordScrutiny.speciesId,jdbcType=VARCHAR},
-     </if>
-     <if test="speciesRecordScrutiny.scrutiny != null">
-       scrutiny = #{speciesRecordScrutiny.scrutiny,jdbcType=VARCHAR},
-     </if>
-     <if test="speciesRecordScrutiny.createTime != null">
-       create_time = #{speciesRecordScrutiny.createTime,jdbcType=BIGINT},
-     </if>
-     <if test="speciesRecordScrutiny.lastModifyTime != null">
-       last_modify_time = #{speciesRecordScrutiny.lastModifyTime,jdbcType=BIGINT}
-     </if>
+            <if test="speciesRecordScrutiny.speciesId != null">
+                species_id = #{speciesRecordScrutiny.speciesId,jdbcType=VARCHAR},
+            </if>
+            <if test="speciesRecordScrutiny.scrutiny != null">
+                scrutiny = #{speciesRecordScrutiny.scrutiny,jdbcType=VARCHAR},
+            </if>
+            <if test="speciesRecordScrutiny.createTime != null">
+                create_time = #{speciesRecordScrutiny.createTime,jdbcType=BIGINT},
+            </if>
+            <if test="speciesRecordScrutiny.lastModifyTime != null">
+                last_modify_time = #{speciesRecordScrutiny.lastModifyTime,jdbcType=BIGINT}
+            </if>
         </trim>
-     where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateSelectiveByMap">
-     update t_species_record_scrutiny
-     set
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateSelectiveByMap">
+        update t_species_record_scrutiny
+        set
         <trim suffixOverrides=",">
-     <if test="speciesRecordScrutiny.speciesId != null">
-       species_id = #{speciesRecordScrutiny.speciesId,jdbcType=VARCHAR},
-     </if>
-     <if test="speciesRecordScrutiny.scrutiny != null">
-       scrutiny = #{speciesRecordScrutiny.scrutiny,jdbcType=VARCHAR},
-     </if>
-     <if test="speciesRecordScrutiny.createTime != null">
-       create_time = #{speciesRecordScrutiny.createTime,jdbcType=BIGINT},
-     </if>
-     <if test="speciesRecordScrutiny.lastModifyTime != null">
-       last_modify_time = #{speciesRecordScrutiny.lastModifyTime,jdbcType=BIGINT}
-     </if>
+            <if test="speciesRecordScrutiny.speciesId != null">
+                species_id = #{speciesRecordScrutiny.speciesId,jdbcType=VARCHAR},
+            </if>
+            <if test="speciesRecordScrutiny.scrutiny != null">
+                scrutiny = #{speciesRecordScrutiny.scrutiny,jdbcType=VARCHAR},
+            </if>
+            <if test="speciesRecordScrutiny.createTime != null">
+                create_time = #{speciesRecordScrutiny.createTime,jdbcType=BIGINT},
+            </if>
+            <if test="speciesRecordScrutiny.lastModifyTime != null">
+                last_modify_time = #{speciesRecordScrutiny.lastModifyTime,jdbcType=BIGINT}
+            </if>
         </trim>
         <include refid="whereSql"></include>
-  </update>
-  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-     select
-     <include refid="Base_Column_List" />
-     from t_species_record_scrutiny
-     where id = #{id,jdbcType=INTEGER}
-  </select>
-  <select id="querySpeciesRecordScrutinyList" parameterType="java.util.HashMap"  resultMap="BaseResultMap">
-     select * FROM  t_species_record_scrutiny  <include refid="whereSql"></include>
-     <if test="wheres.get('datatableorderby')!=null and wheres.get('datatableorderby')!='' ">
-         ${wheres.get('datatableorderby')}
-     </if>
-     <if test="wheres.get('limit')!=null and wheres.get('limit')!='' ">
-         ${wheres.get('limit')}
-     </if>
-  </select>
-  <select id="findByPage" parameterType="java.util.HashMap"  resultMap="BaseResultMap" useCache="false">
-     select * FROM  t_species_record_scrutiny  <include refid="whereSql"></include>
-     <if test="wheres.get('datatableorderby')!=null and wheres.get('datatableorderby')!='' ">
-         ${wheres.get('datatableorderby')}
-     </if>
-  </select>
-  <sql id="whereSql">
+    </update>
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_species_record_scrutiny
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="querySpeciesRecordScrutinyList" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        select * FROM t_species_record_scrutiny
+        <include refid="whereSql"></include>
+        <if test="wheres.get('datatableorderby')!=null and wheres.get('datatableorderby')!='' ">
+            ${wheres.get('datatableorderby')}
+        </if>
+        <if test="wheres.get('limit')!=null and wheres.get('limit')!='' ">
+            ${wheres.get('limit')}
+        </if>
+    </select>
+    <select id="findByPage" parameterType="java.util.HashMap" resultMap="BaseResultMap" useCache="false">
+        select * FROM t_species_record_scrutiny
+        <include refid="whereSql"></include>
+        <if test="wheres.get('datatableorderby')!=null and wheres.get('datatableorderby')!='' ">
+            ${wheres.get('datatableorderby')}
+        </if>
+    </select>
+    <sql id="whereSql">
         <if test="wheres != null and wheres.size() > 0">
             where 1 = 1
             <foreach collection="wheres.entrySet()" item="value" index="key">
@@ -109,7 +112,8 @@
                         <when test="key == 'speciesId' or key.startsWith('speciesId_')">and species_id</when>
                         <when test="key == 'scrutiny' or key.startsWith('scrutiny_')">and scrutiny</when>
                         <when test="key == 'createTime' or key.startsWith('createTime_')">and create_time</when>
-                        <when test="key == 'lastModifyTime' or key.startsWith('lastModifyTime_')">and last_modify_time</when>
+                        <when test="key == 'lastModifyTime' or key.startsWith('lastModifyTime_')">and last_modify_time
+                        </when>
                         <otherwise>
                             <bind name="valid" value="0"/>
                         </otherwise>
@@ -135,5 +139,5 @@
                 </if>
             </foreach>
         </if>
-  </sql>
+    </sql>
 </mapper>

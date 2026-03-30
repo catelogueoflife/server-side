@@ -1,120 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.touchkiss.catelogueoflife.species.mapper.SpeciesCommonNameReferencesDaoM">
-  <resultMap id="BaseResultMap" type="com.touchkiss.catelogueoflife.species.bean.SpeciesCommonNameReferences">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="common_name_id" jdbcType="INTEGER" property="commonNameId" />
-    <result column="author" jdbcType="VARCHAR" property="author" />
-    <result column="year" jdbcType="INTEGER" property="year" />
-    <result column="source" jdbcType="VARCHAR" property="source" />
-    <result column="create_time" jdbcType="BIGINT" property="createTime" />
-    <result column="last_modify_time" jdbcType="BIGINT" property="lastModifyTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id,common_name_id,author,year,source,create_time,last_modify_time
-  </sql>
-  <insert id="insert" parameterType="com.touchkiss.catelogueoflife.species.bean.SpeciesCommonNameReferences">
-     insert into t_species_common_names_references(<include refid="Base_Column_List"></include>)
-     values (
-     #{id,jdbcType=INTEGER},#{commonNameId,jdbcType=INTEGER},#{author,jdbcType=VARCHAR},#{year,jdbcType=INTEGER},#{source,jdbcType=VARCHAR},#{createTime,jdbcType=BIGINT},#{lastModifyTime,jdbcType=BIGINT})
-  </insert>
-  <insert id="insertWithoutId" parameterType="com.touchkiss.catelogueoflife.species.bean.SpeciesCommonNameReferences" useGeneratedKeys="true" keyProperty="id">
-     insert into t_species_common_names_references(common_name_id,author,year,source,create_time,last_modify_time)
-     values (
-     #{commonNameId,jdbcType=INTEGER},#{author,jdbcType=VARCHAR},#{year,jdbcType=INTEGER},#{source,jdbcType=VARCHAR},#{createTime,jdbcType=BIGINT},#{lastModifyTime,jdbcType=BIGINT})
-  </insert>
-  <delete id="deleteById" parameterType="java.lang.Integer">
-     delete from t_species_common_names_references
-     where id = #{id,jdbcType=INTEGER}
-  </delete>
+    <resultMap id="BaseResultMap" type="com.touchkiss.catelogueoflife.species.bean.SpeciesCommonNameReferences">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="common_name_id" jdbcType="INTEGER" property="commonNameId"/>
+        <result column="author" jdbcType="VARCHAR" property="author"/>
+        <result column="year" jdbcType="INTEGER" property="year"/>
+        <result column="source" jdbcType="VARCHAR" property="source"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="last_modify_time" jdbcType="BIGINT" property="lastModifyTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,common_name_id,author,year,source,create_time,last_modify_time
+    </sql>
+    <insert id="insert" parameterType="com.touchkiss.catelogueoflife.species.bean.SpeciesCommonNameReferences">
+        insert into t_species_common_names_references(<include refid="Base_Column_List"></include>)
+        values (
+        #{id,jdbcType=INTEGER},#{commonNameId,jdbcType=INTEGER},#{author,jdbcType=VARCHAR},#{year,jdbcType=INTEGER},#{source,jdbcType=VARCHAR},#{createTime,jdbcType=BIGINT},#{lastModifyTime,jdbcType=BIGINT})
+    </insert>
+    <insert id="insertWithoutId" parameterType="com.touchkiss.catelogueoflife.species.bean.SpeciesCommonNameReferences"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into t_species_common_names_references(common_name_id, author, year, source, create_time, last_modify_time)
+        values (#{commonNameId,jdbcType=INTEGER}, #{author,jdbcType=VARCHAR}, #{year,jdbcType=INTEGER},
+                #{source,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{lastModifyTime,jdbcType=BIGINT})
+    </insert>
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete
+        from t_species_common_names_references
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
     <delete id="deleteByMap">
         delete from t_species_common_names_references
         <include refid="whereSql"></include>
     </delete>
-  <update id="updateById">
-     update t_species_common_names_references
-     set
-       common_name_id = #{speciesCommonNameReferences.commonNameId,jdbcType=INTEGER},
-       author = #{speciesCommonNameReferences.author,jdbcType=VARCHAR},
-       year = #{speciesCommonNameReferences.year,jdbcType=INTEGER},
-       source = #{speciesCommonNameReferences.source,jdbcType=VARCHAR},
-       create_time = #{speciesCommonNameReferences.createTime,jdbcType=BIGINT},
-       last_modify_time = #{speciesCommonNameReferences.lastModifyTime,jdbcType=BIGINT}
-     where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateSelectiveById">
-     update t_species_common_names_references
-     set
+    <update id="updateById">
+        update t_species_common_names_references
+        set common_name_id   = #{speciesCommonNameReferences.commonNameId,jdbcType=INTEGER},
+            author           = #{speciesCommonNameReferences.author,jdbcType=VARCHAR},
+            year             = #{speciesCommonNameReferences.year,jdbcType=INTEGER},
+            source           = #{speciesCommonNameReferences.source,jdbcType=VARCHAR},
+            create_time      = #{speciesCommonNameReferences.createTime,jdbcType=BIGINT},
+            last_modify_time = #{speciesCommonNameReferences.lastModifyTime,jdbcType=BIGINT}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateSelectiveById">
+        update t_species_common_names_references
+        set
         <trim suffixOverrides=",">
-     <if test="speciesCommonNameReferences.commonNameId != null">
-       common_name_id = #{speciesCommonNameReferences.commonNameId,jdbcType=INTEGER},
-     </if>
-     <if test="speciesCommonNameReferences.author != null">
-       author = #{speciesCommonNameReferences.author,jdbcType=VARCHAR},
-     </if>
-     <if test="speciesCommonNameReferences.year != null">
-       year = #{speciesCommonNameReferences.year,jdbcType=INTEGER},
-     </if>
-     <if test="speciesCommonNameReferences.source != null">
-       source = #{speciesCommonNameReferences.source,jdbcType=VARCHAR},
-     </if>
-     <if test="speciesCommonNameReferences.createTime != null">
-       create_time = #{speciesCommonNameReferences.createTime,jdbcType=BIGINT},
-     </if>
-     <if test="speciesCommonNameReferences.lastModifyTime != null">
-       last_modify_time = #{speciesCommonNameReferences.lastModifyTime,jdbcType=BIGINT}
-     </if>
+            <if test="speciesCommonNameReferences.commonNameId != null">
+                common_name_id = #{speciesCommonNameReferences.commonNameId,jdbcType=INTEGER},
+            </if>
+            <if test="speciesCommonNameReferences.author != null">
+                author = #{speciesCommonNameReferences.author,jdbcType=VARCHAR},
+            </if>
+            <if test="speciesCommonNameReferences.year != null">
+                year = #{speciesCommonNameReferences.year,jdbcType=INTEGER},
+            </if>
+            <if test="speciesCommonNameReferences.source != null">
+                source = #{speciesCommonNameReferences.source,jdbcType=VARCHAR},
+            </if>
+            <if test="speciesCommonNameReferences.createTime != null">
+                create_time = #{speciesCommonNameReferences.createTime,jdbcType=BIGINT},
+            </if>
+            <if test="speciesCommonNameReferences.lastModifyTime != null">
+                last_modify_time = #{speciesCommonNameReferences.lastModifyTime,jdbcType=BIGINT}
+            </if>
         </trim>
-     where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateSelectiveByMap">
-     update t_species_common_names_references
-     set
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateSelectiveByMap">
+        update t_species_common_names_references
+        set
         <trim suffixOverrides=",">
-     <if test="speciesCommonNameReferences.commonNameId != null">
-       common_name_id = #{speciesCommonNameReferences.commonNameId,jdbcType=INTEGER},
-     </if>
-     <if test="speciesCommonNameReferences.author != null">
-       author = #{speciesCommonNameReferences.author,jdbcType=VARCHAR},
-     </if>
-     <if test="speciesCommonNameReferences.year != null">
-       year = #{speciesCommonNameReferences.year,jdbcType=INTEGER},
-     </if>
-     <if test="speciesCommonNameReferences.source != null">
-       source = #{speciesCommonNameReferences.source,jdbcType=VARCHAR},
-     </if>
-     <if test="speciesCommonNameReferences.createTime != null">
-       create_time = #{speciesCommonNameReferences.createTime,jdbcType=BIGINT},
-     </if>
-     <if test="speciesCommonNameReferences.lastModifyTime != null">
-       last_modify_time = #{speciesCommonNameReferences.lastModifyTime,jdbcType=BIGINT}
-     </if>
+            <if test="speciesCommonNameReferences.commonNameId != null">
+                common_name_id = #{speciesCommonNameReferences.commonNameId,jdbcType=INTEGER},
+            </if>
+            <if test="speciesCommonNameReferences.author != null">
+                author = #{speciesCommonNameReferences.author,jdbcType=VARCHAR},
+            </if>
+            <if test="speciesCommonNameReferences.year != null">
+                year = #{speciesCommonNameReferences.year,jdbcType=INTEGER},
+            </if>
+            <if test="speciesCommonNameReferences.source != null">
+                source = #{speciesCommonNameReferences.source,jdbcType=VARCHAR},
+            </if>
+            <if test="speciesCommonNameReferences.createTime != null">
+                create_time = #{speciesCommonNameReferences.createTime,jdbcType=BIGINT},
+            </if>
+            <if test="speciesCommonNameReferences.lastModifyTime != null">
+                last_modify_time = #{speciesCommonNameReferences.lastModifyTime,jdbcType=BIGINT}
+            </if>
         </trim>
         <include refid="whereSql"></include>
-  </update>
-  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-     select
-     <include refid="Base_Column_List" />
-     from t_species_common_names_references
-     where id = #{id,jdbcType=INTEGER}
-  </select>
-  <select id="querySpeciesCommonNameReferencesList" parameterType="java.util.HashMap"  resultMap="BaseResultMap">
-     select * FROM  t_species_common_names_references  <include refid="whereSql"></include>
-     <if test="wheres.get('datatableorderby')!=null and wheres.get('datatableorderby')!='' ">
-         ${wheres.get('datatableorderby')}
-     </if>
-     <if test="wheres.get('limit')!=null and wheres.get('limit')!='' ">
-         ${wheres.get('limit')}
-     </if>
-  </select>
-  <select id="findByPage" parameterType="java.util.HashMap"  resultMap="BaseResultMap" useCache="false">
-     select * FROM  t_species_common_names_references  <include refid="whereSql"></include>
-     <if test="wheres.get('datatableorderby')!=null and wheres.get('datatableorderby')!='' ">
-         ${wheres.get('datatableorderby')}
-     </if>
-  </select>
-  <sql id="whereSql">
+    </update>
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_species_common_names_references
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="querySpeciesCommonNameReferencesList" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        select * FROM t_species_common_names_references
+        <include refid="whereSql"></include>
+        <if test="wheres.get('datatableorderby')!=null and wheres.get('datatableorderby')!='' ">
+            ${wheres.get('datatableorderby')}
+        </if>
+        <if test="wheres.get('limit')!=null and wheres.get('limit')!='' ">
+            ${wheres.get('limit')}
+        </if>
+    </select>
+    <select id="findByPage" parameterType="java.util.HashMap" resultMap="BaseResultMap" useCache="false">
+        select * FROM t_species_common_names_references
+        <include refid="whereSql"></include>
+        <if test="wheres.get('datatableorderby')!=null and wheres.get('datatableorderby')!='' ">
+            ${wheres.get('datatableorderby')}
+        </if>
+    </select>
+    <sql id="whereSql">
         <if test="wheres != null and wheres.size() > 0">
             where 1 = 1
             <foreach collection="wheres.entrySet()" item="value" index="key">
@@ -127,7 +130,8 @@
                         <when test="key == 'year' or key.startsWith('year_')">and year</when>
                         <when test="key == 'source' or key.startsWith('source_')">and source</when>
                         <when test="key == 'createTime' or key.startsWith('createTime_')">and create_time</when>
-                        <when test="key == 'lastModifyTime' or key.startsWith('lastModifyTime_')">and last_modify_time</when>
+                        <when test="key == 'lastModifyTime' or key.startsWith('lastModifyTime_')">and last_modify_time
+                        </when>
                         <otherwise>
                             <bind name="valid" value="0"/>
                         </otherwise>
@@ -153,5 +157,5 @@
                 </if>
             </foreach>
         </if>
-  </sql>
+    </sql>
 </mapper>

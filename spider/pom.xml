@@ -3,8 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>catelogue-of-life</artifactId>
-        <groupId>com.touchkiss.catelogueoflife</groupId>
+        <artifactId>catalogue-of-life</artifactId>
+        <groupId>com.touchkiss.catalogueoflife</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -20,7 +20,7 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.touchkiss.catelogueoflife</groupId>
+            <groupId>com.touchkiss.catalogueoflife</groupId>
             <artifactId>dao</artifactId>
         </dependency><!-- https://mvnrepository.com/artifact/org.fusesource.scalate/scalate-wikitext -->
         <!-- https://mvnrepository.com/artifact/org.sweble.wom3/sweble-wom3-core -->
@@ -39,8 +39,33 @@
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
         </dependency>
+
+        <!-- WebMagic Crawler Framework -->
         <dependency>
-            <groupId>com.touchkiss.catelogueoflife</groupId>
+            <groupId>us.codecraft</groupId>
+            <artifactId>webmagic-core</artifactId>
+            <version>0.8.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>us.codecraft</groupId>
+            <artifactId>webmagic-extension</artifactId>
+            <version>0.8.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.touchkiss.catalogueoflife</groupId>
             <artifactId>es-common</artifactId>
             <exclusions>
                 <exclusion>
@@ -68,7 +93,7 @@
                     <artifactId>elasticsearch-rest-high-level-client</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>com.touchkiss.catelogueoflife</groupId>
+                    <groupId>com.touchkiss.catalogueoflife</groupId>
                     <artifactId>common</artifactId>
                 </exclusion>
             </exclusions>

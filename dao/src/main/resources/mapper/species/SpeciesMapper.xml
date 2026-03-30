@@ -1,203 +1,205 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.touchkiss.catelogueoflife.species.mapper.SpeciesDaoM">
-  <resultMap id="BaseResultMap" type="com.touchkiss.catelogueoflife.species.bean.Species">
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="name_accepted" jdbcType="BIT" property="nameAccepted" />
-    <result column="genus" jdbcType="VARCHAR" property="genus" />
-    <result column="subgenus" jdbcType="VARCHAR" property="subgenus" />
-    <result column="species" jdbcType="VARCHAR" property="species" />
-    <result column="infraspecies_marker" jdbcType="VARCHAR" property="infraspeciesMarker" />
-    <result column="infraspecies" jdbcType="VARCHAR" property="infraspecies" />
-    <result column="author" jdbcType="VARCHAR" property="author" />
-    <result column="online_resource" jdbcType="VARCHAR" property="onlineResource" />
-    <result column="is_extinct" jdbcType="BIT" property="isExtinct" />
-    <result column="source_database" jdbcType="VARCHAR" property="sourceDatabase" />
-    <result column="source_database_url" jdbcType="VARCHAR" property="sourceDatabaseUrl" />
-    <result column="bibliographic_citation" jdbcType="LONGVARCHAR" property="bibliographicCitation" />
-    <result column="url" jdbcType="VARCHAR" property="url" />
-    <result column="distribution" jdbcType="LONGVARCHAR" property="distribution" />
-    <result column="create_time" jdbcType="BIGINT" property="createTime" />
-    <result column="last_modify_time" jdbcType="BIGINT" property="lastModifyTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id,name,name_accepted,genus,subgenus,species,infraspecies_marker,infraspecies,author,online_resource,is_extinct,source_database,source_database_url,bibliographic_citation,url,distribution,create_time,last_modify_time
-  </sql>
-  <insert id="insert" parameterType="com.touchkiss.catelogueoflife.species.bean.Species">
-     insert into t_species(<include refid="Base_Column_List"></include>)
-     values (
-     #{id,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{nameAccepted,jdbcType=BIT},#{genus,jdbcType=VARCHAR},#{subgenus,jdbcType=VARCHAR},#{species,jdbcType=VARCHAR},#{infraspeciesMarker,jdbcType=VARCHAR},#{infraspecies,jdbcType=VARCHAR},#{author,jdbcType=VARCHAR},#{onlineResource,jdbcType=VARCHAR},#{isExtinct,jdbcType=BIT},#{sourceDatabase,jdbcType=VARCHAR},#{sourceDatabaseUrl,jdbcType=VARCHAR},#{bibliographicCitation,jdbcType=LONGVARCHAR},#{url,jdbcType=VARCHAR},#{distribution,jdbcType=LONGVARCHAR},#{createTime,jdbcType=BIGINT},#{lastModifyTime,jdbcType=BIGINT})
-  </insert>
-  <delete id="deleteById" parameterType="java.lang.String">
-     delete from t_species
-     where id = #{id,jdbcType=VARCHAR}
-  </delete>
+    <resultMap id="BaseResultMap" type="com.touchkiss.catelogueoflife.species.bean.Species">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="name_accepted" jdbcType="BIT" property="nameAccepted"/>
+        <result column="genus" jdbcType="VARCHAR" property="genus"/>
+        <result column="subgenus" jdbcType="VARCHAR" property="subgenus"/>
+        <result column="species" jdbcType="VARCHAR" property="species"/>
+        <result column="infraspecies_marker" jdbcType="VARCHAR" property="infraspeciesMarker"/>
+        <result column="infraspecies" jdbcType="VARCHAR" property="infraspecies"/>
+        <result column="author" jdbcType="VARCHAR" property="author"/>
+        <result column="online_resource" jdbcType="VARCHAR" property="onlineResource"/>
+        <result column="is_extinct" jdbcType="BIT" property="isExtinct"/>
+        <result column="source_database" jdbcType="VARCHAR" property="sourceDatabase"/>
+        <result column="source_database_url" jdbcType="VARCHAR" property="sourceDatabaseUrl"/>
+        <result column="bibliographic_citation" jdbcType="LONGVARCHAR" property="bibliographicCitation"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="distribution" jdbcType="LONGVARCHAR" property="distribution"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="last_modify_time" jdbcType="BIGINT" property="lastModifyTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,name,name_accepted,genus,subgenus,species,infraspecies_marker,infraspecies,author,online_resource,is_extinct,source_database,source_database_url,bibliographic_citation,url,distribution,create_time,last_modify_time
+    </sql>
+    <insert id="insert" parameterType="com.touchkiss.catelogueoflife.species.bean.Species">
+        insert into t_species(<include refid="Base_Column_List"></include>)
+        values (
+        #{id,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{nameAccepted,jdbcType=BIT},#{genus,jdbcType=VARCHAR},#{subgenus,jdbcType=VARCHAR},#{species,jdbcType=VARCHAR},#{infraspeciesMarker,jdbcType=VARCHAR},#{infraspecies,jdbcType=VARCHAR},#{author,jdbcType=VARCHAR},#{onlineResource,jdbcType=VARCHAR},#{isExtinct,jdbcType=BIT},#{sourceDatabase,jdbcType=VARCHAR},#{sourceDatabaseUrl,jdbcType=VARCHAR},#{bibliographicCitation,jdbcType=LONGVARCHAR},#{url,jdbcType=VARCHAR},#{distribution,jdbcType=LONGVARCHAR},#{createTime,jdbcType=BIGINT},#{lastModifyTime,jdbcType=BIGINT})
+    </insert>
+    <delete id="deleteById" parameterType="java.lang.String">
+        delete
+        from t_species
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
     <delete id="deleteByMap">
         delete from t_species
         <include refid="whereSql"></include>
     </delete>
-  <update id="updateById">
-     update t_species
-     set
-       name = #{species.name,jdbcType=VARCHAR},
-       name_accepted = #{species.nameAccepted,jdbcType=BIT},
-       genus = #{species.genus,jdbcType=VARCHAR},
-       subgenus = #{species.subgenus,jdbcType=VARCHAR},
-       species = #{species.species,jdbcType=VARCHAR},
-       infraspecies_marker = #{species.infraspeciesMarker,jdbcType=VARCHAR},
-       infraspecies = #{species.infraspecies,jdbcType=VARCHAR},
-       author = #{species.author,jdbcType=VARCHAR},
-       online_resource = #{species.onlineResource,jdbcType=VARCHAR},
-       is_extinct = #{species.isExtinct,jdbcType=BIT},
-       source_database = #{species.sourceDatabase,jdbcType=VARCHAR},
-       source_database_url = #{species.sourceDatabaseUrl,jdbcType=VARCHAR},
-       bibliographic_citation = #{species.bibliographicCitation,jdbcType=LONGVARCHAR},
-       url = #{species.url,jdbcType=VARCHAR},
-       distribution = #{species.distribution,jdbcType=LONGVARCHAR},
-       create_time = #{species.createTime,jdbcType=BIGINT},
-       last_modify_time = #{species.lastModifyTime,jdbcType=BIGINT}
-     where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateSelectiveById">
-     update t_species
-     set
+    <update id="updateById">
+        update t_species
+        set name                   = #{species.name,jdbcType=VARCHAR},
+            name_accepted          = #{species.nameAccepted,jdbcType=BIT},
+            genus                  = #{species.genus,jdbcType=VARCHAR},
+            subgenus               = #{species.subgenus,jdbcType=VARCHAR},
+            species                = #{species.species,jdbcType=VARCHAR},
+            infraspecies_marker    = #{species.infraspeciesMarker,jdbcType=VARCHAR},
+            infraspecies           = #{species.infraspecies,jdbcType=VARCHAR},
+            author                 = #{species.author,jdbcType=VARCHAR},
+            online_resource        = #{species.onlineResource,jdbcType=VARCHAR},
+            is_extinct             = #{species.isExtinct,jdbcType=BIT},
+            source_database        = #{species.sourceDatabase,jdbcType=VARCHAR},
+            source_database_url    = #{species.sourceDatabaseUrl,jdbcType=VARCHAR},
+            bibliographic_citation = #{species.bibliographicCitation,jdbcType=LONGVARCHAR},
+            url                    = #{species.url,jdbcType=VARCHAR},
+            distribution           = #{species.distribution,jdbcType=LONGVARCHAR},
+            create_time            = #{species.createTime,jdbcType=BIGINT},
+            last_modify_time       = #{species.lastModifyTime,jdbcType=BIGINT}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateSelectiveById">
+        update t_species
+        set
         <trim suffixOverrides=",">
-     <if test="species.name != null">
-       name = #{species.name,jdbcType=VARCHAR},
-     </if>
-     <if test="species.nameAccepted != null">
-       name_accepted = #{species.nameAccepted,jdbcType=BIT},
-     </if>
-     <if test="species.genus != null">
-       genus = #{species.genus,jdbcType=VARCHAR},
-     </if>
-     <if test="species.subgenus != null">
-       subgenus = #{species.subgenus,jdbcType=VARCHAR},
-     </if>
-     <if test="species.species != null">
-       species = #{species.species,jdbcType=VARCHAR},
-     </if>
-     <if test="species.infraspeciesMarker != null">
-       infraspecies_marker = #{species.infraspeciesMarker,jdbcType=VARCHAR},
-     </if>
-     <if test="species.infraspecies != null">
-       infraspecies = #{species.infraspecies,jdbcType=VARCHAR},
-     </if>
-     <if test="species.author != null">
-       author = #{species.author,jdbcType=VARCHAR},
-     </if>
-     <if test="species.onlineResource != null">
-       online_resource = #{species.onlineResource,jdbcType=VARCHAR},
-     </if>
-     <if test="species.isExtinct != null">
-       is_extinct = #{species.isExtinct,jdbcType=BIT},
-     </if>
-     <if test="species.sourceDatabase != null">
-       source_database = #{species.sourceDatabase,jdbcType=VARCHAR},
-     </if>
-     <if test="species.sourceDatabaseUrl != null">
-       source_database_url = #{species.sourceDatabaseUrl,jdbcType=VARCHAR},
-     </if>
-     <if test="species.bibliographicCitation != null">
-       bibliographic_citation = #{species.bibliographicCitation,jdbcType=LONGVARCHAR},
-     </if>
-     <if test="species.url != null">
-       url = #{species.url,jdbcType=VARCHAR},
-     </if>
-     <if test="species.distribution != null">
-       distribution = #{species.distribution,jdbcType=LONGVARCHAR},
-     </if>
-     <if test="species.createTime != null">
-       create_time = #{species.createTime,jdbcType=BIGINT},
-     </if>
-     <if test="species.lastModifyTime != null">
-       last_modify_time = #{species.lastModifyTime,jdbcType=BIGINT}
-     </if>
+            <if test="species.name != null">
+                name = #{species.name,jdbcType=VARCHAR},
+            </if>
+            <if test="species.nameAccepted != null">
+                name_accepted = #{species.nameAccepted,jdbcType=BIT},
+            </if>
+            <if test="species.genus != null">
+                genus = #{species.genus,jdbcType=VARCHAR},
+            </if>
+            <if test="species.subgenus != null">
+                subgenus = #{species.subgenus,jdbcType=VARCHAR},
+            </if>
+            <if test="species.species != null">
+                species = #{species.species,jdbcType=VARCHAR},
+            </if>
+            <if test="species.infraspeciesMarker != null">
+                infraspecies_marker = #{species.infraspeciesMarker,jdbcType=VARCHAR},
+            </if>
+            <if test="species.infraspecies != null">
+                infraspecies = #{species.infraspecies,jdbcType=VARCHAR},
+            </if>
+            <if test="species.author != null">
+                author = #{species.author,jdbcType=VARCHAR},
+            </if>
+            <if test="species.onlineResource != null">
+                online_resource = #{species.onlineResource,jdbcType=VARCHAR},
+            </if>
+            <if test="species.isExtinct != null">
+                is_extinct = #{species.isExtinct,jdbcType=BIT},
+            </if>
+            <if test="species.sourceDatabase != null">
+                source_database = #{species.sourceDatabase,jdbcType=VARCHAR},
+            </if>
+            <if test="species.sourceDatabaseUrl != null">
+                source_database_url = #{species.sourceDatabaseUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="species.bibliographicCitation != null">
+                bibliographic_citation = #{species.bibliographicCitation,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="species.url != null">
+                url = #{species.url,jdbcType=VARCHAR},
+            </if>
+            <if test="species.distribution != null">
+                distribution = #{species.distribution,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="species.createTime != null">
+                create_time = #{species.createTime,jdbcType=BIGINT},
+            </if>
+            <if test="species.lastModifyTime != null">
+                last_modify_time = #{species.lastModifyTime,jdbcType=BIGINT}
+            </if>
         </trim>
-     where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateSelectiveByMap">
-     update t_species
-     set
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateSelectiveByMap">
+        update t_species
+        set
         <trim suffixOverrides=",">
-     <if test="species.name != null">
-       name = #{species.name,jdbcType=VARCHAR},
-     </if>
-     <if test="species.nameAccepted != null">
-       name_accepted = #{species.nameAccepted,jdbcType=BIT},
-     </if>
-     <if test="species.genus != null">
-       genus = #{species.genus,jdbcType=VARCHAR},
-     </if>
-     <if test="species.subgenus != null">
-       subgenus = #{species.subgenus,jdbcType=VARCHAR},
-     </if>
-     <if test="species.species != null">
-       species = #{species.species,jdbcType=VARCHAR},
-     </if>
-     <if test="species.infraspeciesMarker != null">
-       infraspecies_marker = #{species.infraspeciesMarker,jdbcType=VARCHAR},
-     </if>
-     <if test="species.infraspecies != null">
-       infraspecies = #{species.infraspecies,jdbcType=VARCHAR},
-     </if>
-     <if test="species.author != null">
-       author = #{species.author,jdbcType=VARCHAR},
-     </if>
-     <if test="species.onlineResource != null">
-       online_resource = #{species.onlineResource,jdbcType=VARCHAR},
-     </if>
-     <if test="species.isExtinct != null">
-       is_extinct = #{species.isExtinct,jdbcType=BIT},
-     </if>
-     <if test="species.sourceDatabase != null">
-       source_database = #{species.sourceDatabase,jdbcType=VARCHAR},
-     </if>
-     <if test="species.sourceDatabaseUrl != null">
-       source_database_url = #{species.sourceDatabaseUrl,jdbcType=VARCHAR},
-     </if>
-     <if test="species.bibliographicCitation != null">
-       bibliographic_citation = #{species.bibliographicCitation,jdbcType=LONGVARCHAR},
-     </if>
-     <if test="species.url != null">
-       url = #{species.url,jdbcType=VARCHAR},
-     </if>
-     <if test="species.distribution != null">
-       distribution = #{species.distribution,jdbcType=LONGVARCHAR},
-     </if>
-     <if test="species.createTime != null">
-       create_time = #{species.createTime,jdbcType=BIGINT},
-     </if>
-     <if test="species.lastModifyTime != null">
-       last_modify_time = #{species.lastModifyTime,jdbcType=BIGINT}
-     </if>
+            <if test="species.name != null">
+                name = #{species.name,jdbcType=VARCHAR},
+            </if>
+            <if test="species.nameAccepted != null">
+                name_accepted = #{species.nameAccepted,jdbcType=BIT},
+            </if>
+            <if test="species.genus != null">
+                genus = #{species.genus,jdbcType=VARCHAR},
+            </if>
+            <if test="species.subgenus != null">
+                subgenus = #{species.subgenus,jdbcType=VARCHAR},
+            </if>
+            <if test="species.species != null">
+                species = #{species.species,jdbcType=VARCHAR},
+            </if>
+            <if test="species.infraspeciesMarker != null">
+                infraspecies_marker = #{species.infraspeciesMarker,jdbcType=VARCHAR},
+            </if>
+            <if test="species.infraspecies != null">
+                infraspecies = #{species.infraspecies,jdbcType=VARCHAR},
+            </if>
+            <if test="species.author != null">
+                author = #{species.author,jdbcType=VARCHAR},
+            </if>
+            <if test="species.onlineResource != null">
+                online_resource = #{species.onlineResource,jdbcType=VARCHAR},
+            </if>
+            <if test="species.isExtinct != null">
+                is_extinct = #{species.isExtinct,jdbcType=BIT},
+            </if>
+            <if test="species.sourceDatabase != null">
+                source_database = #{species.sourceDatabase,jdbcType=VARCHAR},
+            </if>
+            <if test="species.sourceDatabaseUrl != null">
+                source_database_url = #{species.sourceDatabaseUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="species.bibliographicCitation != null">
+                bibliographic_citation = #{species.bibliographicCitation,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="species.url != null">
+                url = #{species.url,jdbcType=VARCHAR},
+            </if>
+            <if test="species.distribution != null">
+                distribution = #{species.distribution,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="species.createTime != null">
+                create_time = #{species.createTime,jdbcType=BIGINT},
+            </if>
+            <if test="species.lastModifyTime != null">
+                last_modify_time = #{species.lastModifyTime,jdbcType=BIGINT}
+            </if>
         </trim>
         <include refid="whereSql"></include>
-  </update>
-  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String" >
-     select
-     <include refid="Base_Column_List" />
-     from t_species
-     where id = #{id,jdbcType=VARCHAR}
-  </select>
-  <select id="querySpeciesList" parameterType="java.util.HashMap"  resultMap="BaseResultMap">
-     select * FROM  t_species  <include refid="whereSql"></include>
-     <if test="wheres.get('datatableorderby')!=null and wheres.get('datatableorderby')!='' ">
-         ${wheres.get('datatableorderby')}
-     </if>
-     <if test="wheres.get('limit')!=null and wheres.get('limit')!='' ">
-         ${wheres.get('limit')}
-     </if>
-  </select>
-  <select id="findByPage" parameterType="java.util.HashMap"  resultMap="BaseResultMap" useCache="false">
-     select * FROM  t_species  <include refid="whereSql"></include>
-     <if test="wheres.get('datatableorderby')!=null and wheres.get('datatableorderby')!='' ">
-         ${wheres.get('datatableorderby')}
-     </if>
-  </select>
-  <sql id="whereSql">
+    </update>
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_species
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <select id="querySpeciesList" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        select * FROM t_species
+        <include refid="whereSql"></include>
+        <if test="wheres.get('datatableorderby')!=null and wheres.get('datatableorderby')!='' ">
+            ${wheres.get('datatableorderby')}
+        </if>
+        <if test="wheres.get('limit')!=null and wheres.get('limit')!='' ">
+            ${wheres.get('limit')}
+        </if>
+    </select>
+    <select id="findByPage" parameterType="java.util.HashMap" resultMap="BaseResultMap" useCache="false">
+        select * FROM t_species
+        <include refid="whereSql"></include>
+        <if test="wheres.get('datatableorderby')!=null and wheres.get('datatableorderby')!='' ">
+            ${wheres.get('datatableorderby')}
+        </if>
+    </select>
+    <sql id="whereSql">
         <if test="wheres != null and wheres.size() > 0">
             where 1 = 1
             <foreach collection="wheres.entrySet()" item="value" index="key">
@@ -210,18 +212,27 @@
                         <when test="key == 'genus' or key.startsWith('genus_')">and genus</when>
                         <when test="key == 'subgenus' or key.startsWith('subgenus_')">and subgenus</when>
                         <when test="key == 'species' or key.startsWith('species_')">and species</when>
-                        <when test="key == 'infraspeciesMarker' or key.startsWith('infraspeciesMarker_')">and infraspecies_marker</when>
+                        <when test="key == 'infraspeciesMarker' or key.startsWith('infraspeciesMarker_')">and
+                            infraspecies_marker
+                        </when>
                         <when test="key == 'infraspecies' or key.startsWith('infraspecies_')">and infraspecies</when>
                         <when test="key == 'author' or key.startsWith('author_')">and author</when>
-                        <when test="key == 'onlineResource' or key.startsWith('onlineResource_')">and online_resource</when>
+                        <when test="key == 'onlineResource' or key.startsWith('onlineResource_')">and online_resource
+                        </when>
                         <when test="key == 'isExtinct' or key.startsWith('isExtinct_')">and is_extinct</when>
-                        <when test="key == 'sourceDatabase' or key.startsWith('sourceDatabase_')">and source_database</when>
-                        <when test="key == 'sourceDatabaseUrl' or key.startsWith('sourceDatabaseUrl_')">and source_database_url</when>
-                        <when test="key == 'bibliographicCitation' or key.startsWith('bibliographicCitation_')">and bibliographic_citation</when>
+                        <when test="key == 'sourceDatabase' or key.startsWith('sourceDatabase_')">and source_database
+                        </when>
+                        <when test="key == 'sourceDatabaseUrl' or key.startsWith('sourceDatabaseUrl_')">and
+                            source_database_url
+                        </when>
+                        <when test="key == 'bibliographicCitation' or key.startsWith('bibliographicCitation_')">and
+                            bibliographic_citation
+                        </when>
                         <when test="key == 'url' or key.startsWith('url_')">and url</when>
                         <when test="key == 'distribution' or key.startsWith('distribution_')">and distribution</when>
                         <when test="key == 'createTime' or key.startsWith('createTime_')">and create_time</when>
-                        <when test="key == 'lastModifyTime' or key.startsWith('lastModifyTime_')">and last_modify_time</when>
+                        <when test="key == 'lastModifyTime' or key.startsWith('lastModifyTime_')">and last_modify_time
+                        </when>
                         <otherwise>
                             <bind name="valid" value="0"/>
                         </otherwise>
@@ -247,5 +258,5 @@
                 </if>
             </foreach>
         </if>
-  </sql>
+    </sql>
 </mapper>

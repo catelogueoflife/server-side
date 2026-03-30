@@ -1,104 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.touchkiss.catelogueoflife.species.mapper.SpeciesSynonymsDaoM">
-  <resultMap id="BaseResultMap" type="com.touchkiss.catelogueoflife.species.bean.SpeciesSynonyms">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="species_id" jdbcType="VARCHAR" property="speciesId" />
-    <result column="synonyms_id" jdbcType="VARCHAR" property="synonymsId" />
-    <result column="create_time" jdbcType="BIGINT" property="createTime" />
-    <result column="last_modify_time" jdbcType="BIGINT" property="lastModifyTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id,species_id,synonyms_id,create_time,last_modify_time
-  </sql>
-  <insert id="insert" parameterType="com.touchkiss.catelogueoflife.species.bean.SpeciesSynonyms">
-     insert into t_species_synonyms(<include refid="Base_Column_List"></include>)
-     values (
-     #{id,jdbcType=INTEGER},#{speciesId,jdbcType=VARCHAR},#{synonymsId,jdbcType=VARCHAR},#{createTime,jdbcType=BIGINT},#{lastModifyTime,jdbcType=BIGINT})
-  </insert>
-  <insert id="insertWithoutId" parameterType="com.touchkiss.catelogueoflife.species.bean.SpeciesSynonyms" useGeneratedKeys="true" keyProperty="id">
-     insert into t_species_synonyms(species_id,synonyms_id,create_time,last_modify_time)
-     values (
-     #{speciesId,jdbcType=VARCHAR},#{synonymsId,jdbcType=VARCHAR},#{createTime,jdbcType=BIGINT},#{lastModifyTime,jdbcType=BIGINT})
-  </insert>
-  <delete id="deleteById" parameterType="java.lang.Integer">
-     delete from t_species_synonyms
-     where id = #{id,jdbcType=INTEGER}
-  </delete>
+    <resultMap id="BaseResultMap" type="com.touchkiss.catelogueoflife.species.bean.SpeciesSynonyms">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="species_id" jdbcType="VARCHAR" property="speciesId"/>
+        <result column="synonyms_id" jdbcType="VARCHAR" property="synonymsId"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="last_modify_time" jdbcType="BIGINT" property="lastModifyTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,species_id,synonyms_id,create_time,last_modify_time
+    </sql>
+    <insert id="insert" parameterType="com.touchkiss.catelogueoflife.species.bean.SpeciesSynonyms">
+        insert into t_species_synonyms(<include refid="Base_Column_List"></include>)
+        values (
+        #{id,jdbcType=INTEGER},#{speciesId,jdbcType=VARCHAR},#{synonymsId,jdbcType=VARCHAR},#{createTime,jdbcType=BIGINT},#{lastModifyTime,jdbcType=BIGINT})
+    </insert>
+    <insert id="insertWithoutId" parameterType="com.touchkiss.catelogueoflife.species.bean.SpeciesSynonyms"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into t_species_synonyms(species_id, synonyms_id, create_time, last_modify_time)
+        values (#{speciesId,jdbcType=VARCHAR}, #{synonymsId,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT},
+                #{lastModifyTime,jdbcType=BIGINT})
+    </insert>
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete
+        from t_species_synonyms
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
     <delete id="deleteByMap">
         delete from t_species_synonyms
         <include refid="whereSql"></include>
     </delete>
-  <update id="updateById">
-     update t_species_synonyms
-     set
-       species_id = #{speciesSynonyms.speciesId,jdbcType=VARCHAR},
-       synonyms_id = #{speciesSynonyms.synonymsId,jdbcType=VARCHAR},
-       create_time = #{speciesSynonyms.createTime,jdbcType=BIGINT},
-       last_modify_time = #{speciesSynonyms.lastModifyTime,jdbcType=BIGINT}
-     where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateSelectiveById">
-     update t_species_synonyms
-     set
+    <update id="updateById">
+        update t_species_synonyms
+        set species_id       = #{speciesSynonyms.speciesId,jdbcType=VARCHAR},
+            synonyms_id      = #{speciesSynonyms.synonymsId,jdbcType=VARCHAR},
+            create_time      = #{speciesSynonyms.createTime,jdbcType=BIGINT},
+            last_modify_time = #{speciesSynonyms.lastModifyTime,jdbcType=BIGINT}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateSelectiveById">
+        update t_species_synonyms
+        set
         <trim suffixOverrides=",">
-     <if test="speciesSynonyms.speciesId != null">
-       species_id = #{speciesSynonyms.speciesId,jdbcType=VARCHAR},
-     </if>
-     <if test="speciesSynonyms.synonymsId != null">
-       synonyms_id = #{speciesSynonyms.synonymsId,jdbcType=VARCHAR},
-     </if>
-     <if test="speciesSynonyms.createTime != null">
-       create_time = #{speciesSynonyms.createTime,jdbcType=BIGINT},
-     </if>
-     <if test="speciesSynonyms.lastModifyTime != null">
-       last_modify_time = #{speciesSynonyms.lastModifyTime,jdbcType=BIGINT}
-     </if>
+            <if test="speciesSynonyms.speciesId != null">
+                species_id = #{speciesSynonyms.speciesId,jdbcType=VARCHAR},
+            </if>
+            <if test="speciesSynonyms.synonymsId != null">
+                synonyms_id = #{speciesSynonyms.synonymsId,jdbcType=VARCHAR},
+            </if>
+            <if test="speciesSynonyms.createTime != null">
+                create_time = #{speciesSynonyms.createTime,jdbcType=BIGINT},
+            </if>
+            <if test="speciesSynonyms.lastModifyTime != null">
+                last_modify_time = #{speciesSynonyms.lastModifyTime,jdbcType=BIGINT}
+            </if>
         </trim>
-     where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateSelectiveByMap">
-     update t_species_synonyms
-     set
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateSelectiveByMap">
+        update t_species_synonyms
+        set
         <trim suffixOverrides=",">
-     <if test="speciesSynonyms.speciesId != null">
-       species_id = #{speciesSynonyms.speciesId,jdbcType=VARCHAR},
-     </if>
-     <if test="speciesSynonyms.synonymsId != null">
-       synonyms_id = #{speciesSynonyms.synonymsId,jdbcType=VARCHAR},
-     </if>
-     <if test="speciesSynonyms.createTime != null">
-       create_time = #{speciesSynonyms.createTime,jdbcType=BIGINT},
-     </if>
-     <if test="speciesSynonyms.lastModifyTime != null">
-       last_modify_time = #{speciesSynonyms.lastModifyTime,jdbcType=BIGINT}
-     </if>
+            <if test="speciesSynonyms.speciesId != null">
+                species_id = #{speciesSynonyms.speciesId,jdbcType=VARCHAR},
+            </if>
+            <if test="speciesSynonyms.synonymsId != null">
+                synonyms_id = #{speciesSynonyms.synonymsId,jdbcType=VARCHAR},
+            </if>
+            <if test="speciesSynonyms.createTime != null">
+                create_time = #{speciesSynonyms.createTime,jdbcType=BIGINT},
+            </if>
+            <if test="speciesSynonyms.lastModifyTime != null">
+                last_modify_time = #{speciesSynonyms.lastModifyTime,jdbcType=BIGINT}
+            </if>
         </trim>
         <include refid="whereSql"></include>
-  </update>
-  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-     select
-     <include refid="Base_Column_List" />
-     from t_species_synonyms
-     where id = #{id,jdbcType=INTEGER}
-  </select>
-  <select id="querySpeciesSynonymsList" parameterType="java.util.HashMap"  resultMap="BaseResultMap">
-     select * FROM  t_species_synonyms  <include refid="whereSql"></include>
-     <if test="wheres.get('datatableorderby')!=null and wheres.get('datatableorderby')!='' ">
-         ${wheres.get('datatableorderby')}
-     </if>
-     <if test="wheres.get('limit')!=null and wheres.get('limit')!='' ">
-         ${wheres.get('limit')}
-     </if>
-  </select>
-  <select id="findByPage" parameterType="java.util.HashMap"  resultMap="BaseResultMap" useCache="false">
-     select * FROM  t_species_synonyms  <include refid="whereSql"></include>
-     <if test="wheres.get('datatableorderby')!=null and wheres.get('datatableorderby')!='' ">
-         ${wheres.get('datatableorderby')}
-     </if>
-  </select>
-  <sql id="whereSql">
+    </update>
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_species_synonyms
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="querySpeciesSynonymsList" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        select * FROM t_species_synonyms
+        <include refid="whereSql"></include>
+        <if test="wheres.get('datatableorderby')!=null and wheres.get('datatableorderby')!='' ">
+            ${wheres.get('datatableorderby')}
+        </if>
+        <if test="wheres.get('limit')!=null and wheres.get('limit')!='' ">
+            ${wheres.get('limit')}
+        </if>
+    </select>
+    <select id="findByPage" parameterType="java.util.HashMap" resultMap="BaseResultMap" useCache="false">
+        select * FROM t_species_synonyms
+        <include refid="whereSql"></include>
+        <if test="wheres.get('datatableorderby')!=null and wheres.get('datatableorderby')!='' ">
+            ${wheres.get('datatableorderby')}
+        </if>
+    </select>
+    <sql id="whereSql">
         <if test="wheres != null and wheres.size() > 0">
             where 1 = 1
             <foreach collection="wheres.entrySet()" item="value" index="key">
@@ -109,7 +112,8 @@
                         <when test="key == 'speciesId' or key.startsWith('speciesId_')">and species_id</when>
                         <when test="key == 'synonymsId' or key.startsWith('synonymsId_')">and synonyms_id</when>
                         <when test="key == 'createTime' or key.startsWith('createTime_')">and create_time</when>
-                        <when test="key == 'lastModifyTime' or key.startsWith('lastModifyTime_')">and last_modify_time</when>
+                        <when test="key == 'lastModifyTime' or key.startsWith('lastModifyTime_')">and last_modify_time
+                        </when>
                         <otherwise>
                             <bind name="valid" value="0"/>
                         </otherwise>
@@ -135,5 +139,5 @@
                 </if>
             </foreach>
         </if>
-  </sql>
+    </sql>
 </mapper>

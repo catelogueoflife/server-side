@@ -15,8 +15,8 @@
         <result column="last_modify_time" jdbcType="BIGINT" property="lastModifyTime"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id,canonical_name,translate,full_name,language,lid,tree_id,fetched,create_time,last_modify_time
-  </sql>
+        id,canonical_name,translate,full_name,language,lid,tree_id,fetched,create_time,last_modify_time
+    </sql>
     <insert id="insert" parameterType="com.touchkiss.catelogueoflife.translate.bean.Translate">
         insert into t_translate(<include refid="Base_Column_List"></include>)
         values (
@@ -24,32 +24,34 @@
     </insert>
     <insert id="insertWithoutId" parameterType="com.touchkiss.catelogueoflife.translate.bean.Translate"
             useGeneratedKeys="true" keyProperty="id">
-     insert into t_translate(canonical_name,translate,full_name,language,lid,tree_id,fetched,create_time,last_modify_time)
-     values (
-     #{canonicalName,jdbcType=VARCHAR},#{translate,jdbcType=VARCHAR},#{fullName,jdbcType=VARCHAR},#{language,jdbcType=VARCHAR},#{lid,jdbcType=VARCHAR},#{treeId,jdbcType=VARCHAR},#{fetched,jdbcType=BIT},#{createTime,jdbcType=BIGINT},#{lastModifyTime,jdbcType=BIGINT})
-  </insert>
+        insert into t_translate(canonical_name, translate, full_name, language, lid, tree_id, fetched, create_time,
+                                last_modify_time)
+        values (#{canonicalName,jdbcType=VARCHAR}, #{translate,jdbcType=VARCHAR}, #{fullName,jdbcType=VARCHAR},
+                #{language,jdbcType=VARCHAR}, #{lid,jdbcType=VARCHAR}, #{treeId,jdbcType=VARCHAR},
+                #{fetched,jdbcType=BIT}, #{createTime,jdbcType=BIGINT}, #{lastModifyTime,jdbcType=BIGINT})
+    </insert>
     <delete id="deleteById" parameterType="java.lang.Integer">
-     delete from t_translate
-     where id = #{id,jdbcType=INTEGER}
-  </delete>
+        delete
+        from t_translate
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
     <delete id="deleteByMap">
         delete from t_translate
         <include refid="whereSql"></include>
     </delete>
     <update id="updateById">
-     update t_translate
-     set
-       canonical_name = #{translate.canonicalName,jdbcType=VARCHAR},
-       translate = #{translate.translate,jdbcType=VARCHAR},
-       full_name = #{translate.fullName,jdbcType=VARCHAR},
-       language = #{translate.language,jdbcType=VARCHAR},
-       lid = #{translate.lid,jdbcType=VARCHAR},
-       tree_id = #{translate.treeId,jdbcType=VARCHAR},
-       fetched = #{translate.fetched,jdbcType=BIT},
-       create_time = #{translate.createTime,jdbcType=BIGINT},
-       last_modify_time = #{translate.lastModifyTime,jdbcType=BIGINT}
-     where id = #{id,jdbcType=INTEGER}
-  </update>
+        update t_translate
+        set canonical_name   = #{translate.canonicalName,jdbcType=VARCHAR},
+            translate        = #{translate.translate,jdbcType=VARCHAR},
+            full_name        = #{translate.fullName,jdbcType=VARCHAR},
+            language         = #{translate.language,jdbcType=VARCHAR},
+            lid              = #{translate.lid,jdbcType=VARCHAR},
+            tree_id          = #{translate.treeId,jdbcType=VARCHAR},
+            fetched          = #{translate.fetched,jdbcType=BIT},
+            create_time      = #{translate.createTime,jdbcType=BIGINT},
+            last_modify_time = #{translate.lastModifyTime,jdbcType=BIGINT}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
     <update id="updateSelectiveById">
         update t_translate
         set
@@ -130,7 +132,7 @@
         <if test="fields != null and field.size() > 0">
             <foreach collection="fields" separator="," item="field">${field}</foreach>
         </if>
-         FROM t_translate
+        FROM t_translate
         <include refid="whereSql"></include>
         <if test="wheres.get('datatableorderby')!=null and wheres.get('datatableorderby')!='' ">
             ${wheres.get('datatableorderby')}

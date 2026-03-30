@@ -24,8 +24,8 @@
         <result column="last_modify_time" jdbcType="BIGINT" property="lastModifyTime"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id,snId,name,type,parentId,numChildren,estimation,total,nr_fossil,nr_extant,estimate_source,is_extinct,has_preholocene,has_modern,image,url,fetched,create_time,last_modify_time
-  </sql>
+        id,snId,name,type,parentId,numChildren,estimation,total,nr_fossil,nr_extant,estimate_source,is_extinct,has_preholocene,has_modern,image,url,fetched,create_time,last_modify_time
+    </sql>
     <insert id="insert" parameterType="com.touchkiss.catelogueoflife.life.bean.LifeCategory">
         insert into t_life_category(<include refid="Base_Column_List"></include>)
         values (
@@ -33,41 +33,47 @@
     </insert>
     <insert id="insertWithoutId" parameterType="com.touchkiss.catelogueoflife.life.bean.LifeCategory"
             useGeneratedKeys="true" keyProperty="id">
-     insert into t_life_category(snId,name,type,parentId,numChildren,estimation,total,nr_fossil,nr_extant,estimate_source,is_extinct,has_preholocene,has_modern,image,url,fetched,create_time,last_modify_time)
-     values (
-     #{snId,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR},#{parentId,jdbcType=INTEGER},#{numChildren,jdbcType=INTEGER},#{estimation,jdbcType=INTEGER},#{total,jdbcType=INTEGER},#{nrFossil,jdbcType=INTEGER},#{nrExtant,jdbcType=INTEGER},#{estimateSource,jdbcType=VARCHAR},#{isExtinct,jdbcType=BIT},#{hasPreholocene,jdbcType=BIT},#{hasModern,jdbcType=BIT},#{image,jdbcType=VARCHAR},#{url,jdbcType=VARCHAR},#{fetched,jdbcType=BIT},#{createTime,jdbcType=BIGINT},#{lastModifyTime,jdbcType=BIGINT})
-  </insert>
+        insert into t_life_category(snId, name, type, parentId, numChildren, estimation, total, nr_fossil, nr_extant,
+                                    estimate_source, is_extinct, has_preholocene, has_modern, image, url, fetched,
+                                    create_time, last_modify_time)
+        values (#{snId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},
+                #{parentId,jdbcType=INTEGER}, #{numChildren,jdbcType=INTEGER}, #{estimation,jdbcType=INTEGER},
+                #{total,jdbcType=INTEGER}, #{nrFossil,jdbcType=INTEGER}, #{nrExtant,jdbcType=INTEGER},
+                #{estimateSource,jdbcType=VARCHAR}, #{isExtinct,jdbcType=BIT}, #{hasPreholocene,jdbcType=BIT},
+                #{hasModern,jdbcType=BIT}, #{image,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{fetched,jdbcType=BIT},
+                #{createTime,jdbcType=BIGINT}, #{lastModifyTime,jdbcType=BIGINT})
+    </insert>
     <delete id="deleteById" parameterType="java.lang.Integer">
-     delete from t_life_category
-     where id = #{id,jdbcType=INTEGER}
-  </delete>
+        delete
+        from t_life_category
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
     <delete id="deleteByMap">
         delete from t_life_category
         <include refid="whereSql"></include>
     </delete>
     <update id="updateById">
-     update t_life_category
-     set
-       snId = #{lifeCategory.snId,jdbcType=VARCHAR},
-       name = #{lifeCategory.name,jdbcType=VARCHAR},
-       type = #{lifeCategory.type,jdbcType=VARCHAR},
-       parentId = #{lifeCategory.parentId,jdbcType=INTEGER},
-       numChildren = #{lifeCategory.numChildren,jdbcType=INTEGER},
-       estimation = #{lifeCategory.estimation,jdbcType=INTEGER},
-       total = #{lifeCategory.total,jdbcType=INTEGER},
-       nr_fossil = #{lifeCategory.nrFossil,jdbcType=INTEGER},
-       nr_extant = #{lifeCategory.nrExtant,jdbcType=INTEGER},
-       estimate_source = #{lifeCategory.estimateSource,jdbcType=VARCHAR},
-       is_extinct = #{lifeCategory.isExtinct,jdbcType=BIT},
-       has_preholocene = #{lifeCategory.hasPreholocene,jdbcType=BIT},
-       has_modern = #{lifeCategory.hasModern,jdbcType=BIT},
-       image = #{lifeCategory.image,jdbcType=VARCHAR},
-       url = #{lifeCategory.url,jdbcType=VARCHAR},
-       fetched = #{lifeCategory.fetched,jdbcType=BIT},
-       create_time = #{lifeCategory.createTime,jdbcType=BIGINT},
-       last_modify_time = #{lifeCategory.lastModifyTime,jdbcType=BIGINT}
-     where id = #{id,jdbcType=INTEGER}
-  </update>
+        update t_life_category
+        set snId             = #{lifeCategory.snId,jdbcType=VARCHAR},
+            name             = #{lifeCategory.name,jdbcType=VARCHAR},
+            type             = #{lifeCategory.type,jdbcType=VARCHAR},
+            parentId         = #{lifeCategory.parentId,jdbcType=INTEGER},
+            numChildren      = #{lifeCategory.numChildren,jdbcType=INTEGER},
+            estimation       = #{lifeCategory.estimation,jdbcType=INTEGER},
+            total            = #{lifeCategory.total,jdbcType=INTEGER},
+            nr_fossil        = #{lifeCategory.nrFossil,jdbcType=INTEGER},
+            nr_extant        = #{lifeCategory.nrExtant,jdbcType=INTEGER},
+            estimate_source  = #{lifeCategory.estimateSource,jdbcType=VARCHAR},
+            is_extinct       = #{lifeCategory.isExtinct,jdbcType=BIT},
+            has_preholocene  = #{lifeCategory.hasPreholocene,jdbcType=BIT},
+            has_modern       = #{lifeCategory.hasModern,jdbcType=BIT},
+            image            = #{lifeCategory.image,jdbcType=VARCHAR},
+            url              = #{lifeCategory.url,jdbcType=VARCHAR},
+            fetched          = #{lifeCategory.fetched,jdbcType=BIT},
+            create_time      = #{lifeCategory.createTime,jdbcType=BIGINT},
+            last_modify_time = #{lifeCategory.lastModifyTime,jdbcType=BIGINT}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
     <update id="updateSelectiveById">
         update t_life_category
         set

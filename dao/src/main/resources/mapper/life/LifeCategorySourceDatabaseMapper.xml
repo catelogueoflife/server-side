@@ -1,104 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.touchkiss.catelogueoflife.life.mapper.LifeCategorySourceDatabaseDaoM">
-  <resultMap id="BaseResultMap" type="com.touchkiss.catelogueoflife.life.bean.LifeCategorySourceDatabase">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="life_id" jdbcType="INTEGER" property="lifeId" />
-    <result column="database_id" jdbcType="INTEGER" property="databaseId" />
-    <result column="create_time" jdbcType="BIGINT" property="createTime" />
-    <result column="last_modify_time" jdbcType="BIGINT" property="lastModifyTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id,life_id,database_id,create_time,last_modify_time
-  </sql>
-  <insert id="insert" parameterType="com.touchkiss.catelogueoflife.life.bean.LifeCategorySourceDatabase">
-     insert into t_life_category_source_database(<include refid="Base_Column_List"></include>)
-     values (
-     #{id,jdbcType=INTEGER},#{lifeId,jdbcType=INTEGER},#{databaseId,jdbcType=INTEGER},#{createTime,jdbcType=BIGINT},#{lastModifyTime,jdbcType=BIGINT})
-  </insert>
-  <insert id="insertWithoutId" parameterType="com.touchkiss.catelogueoflife.life.bean.LifeCategorySourceDatabase" useGeneratedKeys="true" keyProperty="id">
-     insert into t_life_category_source_database(life_id,database_id,create_time,last_modify_time)
-     values (
-     #{lifeId,jdbcType=INTEGER},#{databaseId,jdbcType=INTEGER},#{createTime,jdbcType=BIGINT},#{lastModifyTime,jdbcType=BIGINT})
-  </insert>
-  <delete id="deleteById" parameterType="java.lang.Integer">
-     delete from t_life_category_source_database
-     where id = #{id,jdbcType=INTEGER}
-  </delete>
+    <resultMap id="BaseResultMap" type="com.touchkiss.catelogueoflife.life.bean.LifeCategorySourceDatabase">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="life_id" jdbcType="INTEGER" property="lifeId"/>
+        <result column="database_id" jdbcType="INTEGER" property="databaseId"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="last_modify_time" jdbcType="BIGINT" property="lastModifyTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,life_id,database_id,create_time,last_modify_time
+    </sql>
+    <insert id="insert" parameterType="com.touchkiss.catelogueoflife.life.bean.LifeCategorySourceDatabase">
+        insert into t_life_category_source_database(<include refid="Base_Column_List"></include>)
+        values (
+        #{id,jdbcType=INTEGER},#{lifeId,jdbcType=INTEGER},#{databaseId,jdbcType=INTEGER},#{createTime,jdbcType=BIGINT},#{lastModifyTime,jdbcType=BIGINT})
+    </insert>
+    <insert id="insertWithoutId" parameterType="com.touchkiss.catelogueoflife.life.bean.LifeCategorySourceDatabase"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into t_life_category_source_database(life_id, database_id, create_time, last_modify_time)
+        values (#{lifeId,jdbcType=INTEGER}, #{databaseId,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT},
+                #{lastModifyTime,jdbcType=BIGINT})
+    </insert>
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete
+        from t_life_category_source_database
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
     <delete id="deleteByMap">
         delete from t_life_category_source_database
         <include refid="whereSql"></include>
     </delete>
-  <update id="updateById">
-     update t_life_category_source_database
-     set
-       life_id = #{lifeCategorySourceDatabase.lifeId,jdbcType=INTEGER},
-       database_id = #{lifeCategorySourceDatabase.databaseId,jdbcType=INTEGER},
-       create_time = #{lifeCategorySourceDatabase.createTime,jdbcType=BIGINT},
-       last_modify_time = #{lifeCategorySourceDatabase.lastModifyTime,jdbcType=BIGINT}
-     where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateSelectiveById">
-     update t_life_category_source_database
-     set
+    <update id="updateById">
+        update t_life_category_source_database
+        set life_id          = #{lifeCategorySourceDatabase.lifeId,jdbcType=INTEGER},
+            database_id      = #{lifeCategorySourceDatabase.databaseId,jdbcType=INTEGER},
+            create_time      = #{lifeCategorySourceDatabase.createTime,jdbcType=BIGINT},
+            last_modify_time = #{lifeCategorySourceDatabase.lastModifyTime,jdbcType=BIGINT}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateSelectiveById">
+        update t_life_category_source_database
+        set
         <trim suffixOverrides=",">
-     <if test="lifeCategorySourceDatabase.lifeId != null">
-       life_id = #{lifeCategorySourceDatabase.lifeId,jdbcType=INTEGER},
-     </if>
-     <if test="lifeCategorySourceDatabase.databaseId != null">
-       database_id = #{lifeCategorySourceDatabase.databaseId,jdbcType=INTEGER},
-     </if>
-     <if test="lifeCategorySourceDatabase.createTime != null">
-       create_time = #{lifeCategorySourceDatabase.createTime,jdbcType=BIGINT},
-     </if>
-     <if test="lifeCategorySourceDatabase.lastModifyTime != null">
-       last_modify_time = #{lifeCategorySourceDatabase.lastModifyTime,jdbcType=BIGINT}
-     </if>
+            <if test="lifeCategorySourceDatabase.lifeId != null">
+                life_id = #{lifeCategorySourceDatabase.lifeId,jdbcType=INTEGER},
+            </if>
+            <if test="lifeCategorySourceDatabase.databaseId != null">
+                database_id = #{lifeCategorySourceDatabase.databaseId,jdbcType=INTEGER},
+            </if>
+            <if test="lifeCategorySourceDatabase.createTime != null">
+                create_time = #{lifeCategorySourceDatabase.createTime,jdbcType=BIGINT},
+            </if>
+            <if test="lifeCategorySourceDatabase.lastModifyTime != null">
+                last_modify_time = #{lifeCategorySourceDatabase.lastModifyTime,jdbcType=BIGINT}
+            </if>
         </trim>
-     where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateSelectiveByMap">
-     update t_life_category_source_database
-     set
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateSelectiveByMap">
+        update t_life_category_source_database
+        set
         <trim suffixOverrides=",">
-     <if test="lifeCategorySourceDatabase.lifeId != null">
-       life_id = #{lifeCategorySourceDatabase.lifeId,jdbcType=INTEGER},
-     </if>
-     <if test="lifeCategorySourceDatabase.databaseId != null">
-       database_id = #{lifeCategorySourceDatabase.databaseId,jdbcType=INTEGER},
-     </if>
-     <if test="lifeCategorySourceDatabase.createTime != null">
-       create_time = #{lifeCategorySourceDatabase.createTime,jdbcType=BIGINT},
-     </if>
-     <if test="lifeCategorySourceDatabase.lastModifyTime != null">
-       last_modify_time = #{lifeCategorySourceDatabase.lastModifyTime,jdbcType=BIGINT}
-     </if>
+            <if test="lifeCategorySourceDatabase.lifeId != null">
+                life_id = #{lifeCategorySourceDatabase.lifeId,jdbcType=INTEGER},
+            </if>
+            <if test="lifeCategorySourceDatabase.databaseId != null">
+                database_id = #{lifeCategorySourceDatabase.databaseId,jdbcType=INTEGER},
+            </if>
+            <if test="lifeCategorySourceDatabase.createTime != null">
+                create_time = #{lifeCategorySourceDatabase.createTime,jdbcType=BIGINT},
+            </if>
+            <if test="lifeCategorySourceDatabase.lastModifyTime != null">
+                last_modify_time = #{lifeCategorySourceDatabase.lastModifyTime,jdbcType=BIGINT}
+            </if>
         </trim>
         <include refid="whereSql"></include>
-  </update>
-  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-     select
-     <include refid="Base_Column_List" />
-     from t_life_category_source_database
-     where id = #{id,jdbcType=INTEGER}
-  </select>
-  <select id="queryLifeCategorySourceDatabaseList" parameterType="java.util.HashMap"  resultMap="BaseResultMap">
-     select * FROM  t_life_category_source_database  <include refid="whereSql"></include>
-     <if test="wheres.get('datatableorderby')!=null and wheres.get('datatableorderby')!='' ">
-         ${wheres.get('datatableorderby')}
-     </if>
-     <if test="wheres.get('limit')!=null and wheres.get('limit')!='' ">
-         ${wheres.get('limit')}
-     </if>
-  </select>
-  <select id="findByPage" parameterType="java.util.HashMap"  resultMap="BaseResultMap" useCache="false">
-     select * FROM  t_life_category_source_database  <include refid="whereSql"></include>
-     <if test="wheres.get('datatableorderby')!=null and wheres.get('datatableorderby')!='' ">
-         ${wheres.get('datatableorderby')}
-     </if>
-  </select>
-  <sql id="whereSql">
+    </update>
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_life_category_source_database
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="queryLifeCategorySourceDatabaseList" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        select * FROM t_life_category_source_database
+        <include refid="whereSql"></include>
+        <if test="wheres.get('datatableorderby')!=null and wheres.get('datatableorderby')!='' ">
+            ${wheres.get('datatableorderby')}
+        </if>
+        <if test="wheres.get('limit')!=null and wheres.get('limit')!='' ">
+            ${wheres.get('limit')}
+        </if>
+    </select>
+    <select id="findByPage" parameterType="java.util.HashMap" resultMap="BaseResultMap" useCache="false">
+        select * FROM t_life_category_source_database
+        <include refid="whereSql"></include>
+        <if test="wheres.get('datatableorderby')!=null and wheres.get('datatableorderby')!='' ">
+            ${wheres.get('datatableorderby')}
+        </if>
+    </select>
+    <sql id="whereSql">
         <if test="wheres != null and wheres.size() > 0">
             where 1 = 1
             <foreach collection="wheres.entrySet()" item="value" index="key">
@@ -109,7 +112,8 @@
                         <when test="key == 'lifeId' or key.startsWith('lifeId_')">and life_id</when>
                         <when test="key == 'databaseId' or key.startsWith('databaseId_')">and database_id</when>
                         <when test="key == 'createTime' or key.startsWith('createTime_')">and create_time</when>
-                        <when test="key == 'lastModifyTime' or key.startsWith('lastModifyTime_')">and last_modify_time</when>
+                        <when test="key == 'lastModifyTime' or key.startsWith('lastModifyTime_')">and last_modify_time
+                        </when>
                         <otherwise>
                             <bind name="valid" value="0"/>
                         </otherwise>
@@ -135,5 +139,5 @@
                 </if>
             </foreach>
         </if>
-  </sql>
+    </sql>
 </mapper>

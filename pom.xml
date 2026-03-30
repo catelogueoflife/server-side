@@ -16,11 +16,11 @@
         <version>3.5.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.touchkiss.catelogueoflife</groupId>
-    <artifactId>catelogue-of-life</artifactId>
+    <groupId>com.touchkiss.catalogueoflife</groupId>
+    <artifactId>catalogue-of-life</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>catelogue-of-life</name>
-    <description>catelogue-of-life</description>
+    <name>catalogue-of-life</name>
+    <description>catalogue-of-life</description>
 
     <properties>
         <java.version>21</java.version>
@@ -41,17 +41,17 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.touchkiss.catelogueoflife</groupId>
+                <groupId>com.touchkiss.catalogueoflife</groupId>
                 <artifactId>common</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.touchkiss.catelogueoflife</groupId>
+                <groupId>com.touchkiss.catalogueoflife</groupId>
                 <artifactId>dao</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.touchkiss.catelogueoflife</groupId>
+                <groupId>com.touchkiss.catalogueoflife</groupId>
                 <artifactId>es-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -178,11 +178,22 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.28.0</version>
                 <configuration>
-                    <testFailureIgnore>false</testFailureIgnore>
-                    <skipTests>false</skipTests>
+                    <rulesets>
+                        <ruleset>rulesets/java/ali-pmd.xml</ruleset>
+                    </rulesets>
+                    <printFailingErrors>true</printFailingErrors>
+                    <linkXRef>false</linkXRef>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.alibaba.p3c</groupId>
+                        <artifactId>p3c-pmd</artifactId>
+                        <version>2.1.1</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

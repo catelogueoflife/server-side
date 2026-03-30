@@ -1,0 +1,19 @@
+package com.touchkiss.catalogueoflife.species.bean;
+
+import lombok.Data;
+
+/**
+ * Created on 2020-03-20 17:31:57
+ *
+ * @author Touchkiss
+ */
+@Data
+public class SpeciesCommonNameReferences {
+    private Integer id; //
+    private Integer commonNameId; //
+    private String author; //
+    private Integer year; //
+    private String source; //
+    private Long createTime; //
+    private Long lastModifyTime; //
+}

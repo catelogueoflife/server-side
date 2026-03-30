@@ -327,7 +327,7 @@ public class CreateModelPremium {
         myFile.println("import org.springframework.stereotype.Service;");
         myFile.println("import org.springframework.transaction.annotation.Transactional;");
         myFile.println(LINE_SEPERATOR);
-        myFile.println("import javax.annotation.Resource;");
+        myFile.println("import jakarta.annotation.Resource;");
         myFile.println("import java.util.Map;");
         myFile.println("import java.util.List;");
         myFile.println(LINE_SEPERATOR);
@@ -447,7 +447,7 @@ public class CreateModelPremium {
         myFile.println("import org.springframework.beans.factory.annotation.Autowired;");
         myFile.println("import org.springframework.web.bind.annotation.*;");
         myFile.println(LINE_SEPERATOR);
-        myFile.println("import javax.servlet.http.HttpServletRequest;");
+        myFile.println("import jakarta.servlet.http.HttpServletRequest;");
         myFile.println("import java.util.HashMap;");
         myFile.println(LINE_SEPERATOR);
         myFile.println("/**");

@@ -35,16 +35,16 @@ import org.elasticsearch.client.core.CountResponse;
 import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.client.indices.CreateIndexResponse;
 import org.elasticsearch.client.indices.GetIndexRequest;
-import org.elasticsearch.common.Nullable;
 import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
+import org.elasticsearch.xcontent.XContentType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -152,7 +152,12 @@ public class BaseRepositoryImpl implements BaseRepository {
                 log.info("es保存数据不能为空");
                 return null;
             }
-            EsDocument esDocument = EsUtil.getEsTableAnnotation(objs.getClass());
+            Object firstDoc = Arrays.stream(objs).filter(Objects::nonNull).findFirst().orElse(null);
+            if (firstDoc == null) {
+                log.info("es保存数据不能为空");
+                return null;
+            }
+            EsDocument esDocument = EsUtil.getEsTableAnnotation(firstDoc.getClass());
             BulkRequest bulkRequest = new BulkRequest();
             Arrays.stream(objs)
                     .filter(Objects::nonNull)

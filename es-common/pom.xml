@@ -14,12 +14,10 @@
         <dependency>
             <groupId>com.touchkiss.catelogueoflife</groupId>
             <artifactId>common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.elasticsearch.client</groupId>
             <artifactId>elasticsearch-rest-high-level-client</artifactId>
-            <version>${elasticsearch.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.elasticsearch</groupId>
@@ -34,7 +32,6 @@
         <dependency>
             <groupId>org.elasticsearch.client</groupId>
             <artifactId>transport</artifactId>
-            <version>${elasticsearch.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.elasticsearch</groupId>
@@ -69,25 +66,21 @@
         <dependency>
             <groupId>org.elasticsearch.plugin</groupId>
             <artifactId>transport-netty4-client</artifactId>
-            <version>${elasticsearch.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.elasticsearch.client/elasticsearch-rest-client -->
         <dependency>
             <groupId>org.elasticsearch.client</groupId>
             <artifactId>elasticsearch-rest-client</artifactId>
-            <version>${elasticsearch.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.elasticsearch/elasticsearch -->
         <dependency>
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch</artifactId>
-            <version>${elasticsearch.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.elasticsearch/elasticsearch-cli -->
         <dependency>
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch-cli</artifactId>
-            <version>${elasticsearch.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.elasticsearch/elasticsearch-core -->
         <!--        <dependency>-->
@@ -105,13 +98,11 @@
         <dependency>
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch-ssl-config</artifactId>
-            <version>${elasticsearch.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.elasticsearch/elasticsearch-x-content -->
         <dependency>
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch-x-content</artifactId>
-            <version>${elasticsearch.version}</version>
         </dependency>
     </dependencies>
 
